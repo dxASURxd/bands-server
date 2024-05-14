@@ -44,9 +44,6 @@ class BandList{
             return band;
         })
     }
-
-
-
 }
 
 module.exports = BandList;

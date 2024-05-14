@@ -15,19 +15,31 @@ class Sockets {
         // On connection
         this.io.on('connection', ( socket ) => {
 
-            console.log("cliente conectao");
-
             // Emitir al cliente todas las bandas actuales
             socket.emit('currentBands', this.bandList.getBands() );
         
             socket.on('voteBand', (id) => {
                 this.bandList.increaseVotes(id);
+                this.io.emit('currentBands', this.bandList.getBands() );
+            });
+
+            socket.on('delBand', (id) => {
+                this.bandList.removeBand(id);
+                this.io.emit('currentBands', this.bandList.getBands() );
+            });
+
+            socket.on('changName', ({id, name}) => {
+                this.bandList.changeName(id, name);
+                this.io.emit('currentBands', this.bandList.getBands() );
+            });
+
+            socket.on('create-band', ({name}) => {
+                this.bandList.addBand(name);
+                this.io.emit('currentBands', this.bandList.getBands() );
             });
 
         });
     }
-
-    
 
 }
 
