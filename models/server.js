@@ -20,6 +20,7 @@ class Server {
         // Configuraciones de sockets
         this.io = socketio( this.server, { /* configuraciones */ } );
     }
+    
 
     middlewares() {
         // Desplegar el directorio público
